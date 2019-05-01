@@ -65,8 +65,16 @@ class Thanos(object):
 		return int( weightedAvg )
 
 def main():
-	weightedAvg = Thanos.RunManySims( 50_000 )
-	print( "Weighted average: {:,}".format( weightedAvg ) )
+	averageMap = {}
+
+	numThanoses = 1
+	while numThanoses < 1_000_000:		# One million Thanoses is surely enough Thanoses
+		
+		print ("DEBUG: Running sim on {0} Thanoses".format( numThanoses ) )
+		averageMap[ numThanoses ] = Thanos.RunManySims( 10_000, numThanoses )
+		numThanoses += int( math.pow( 10, math.floor( math.log10( numThanoses ) ) ) )
+	
+	pprint.pprint( averageMap )
 
 if __name__ == '__main__':
 	main()
